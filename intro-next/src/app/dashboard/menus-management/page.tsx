@@ -83,7 +83,7 @@ function MenusManagementPage() {
                       Beverages
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium">$4.50</td>
+                  <td className="px-6 py-4 font-medium">Rp 45.000</td>
                   <td className="px-6 py-4 text-gray-700">124 units</td>
                   <td className="px-6 py-4">
                     <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
@@ -122,7 +122,7 @@ function MenusManagementPage() {
                       Main Course
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium">$12.00</td>
+                  <td className="px-6 py-4 font-medium">Rp 120.000</td>
                   <td className="px-6 py-4 text-gray-700">45 units</td>
                   <td className="px-6 py-4">
                     <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
@@ -161,7 +161,7 @@ function MenusManagementPage() {
                       Appetizers
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium">$8.50</td>
+                  <td className="px-6 py-4 font-medium">Rp 85.000</td>
                   <td className="px-6 py-4 font-medium text-red-500">
                     Out of Stock
                   </td>
