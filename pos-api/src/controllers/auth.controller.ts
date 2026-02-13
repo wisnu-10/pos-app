@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { authService } from '../services/auth.service';
+import AppError from '../helpers/app-error.helper';
 
 export const authController = {
   async register(req: Request, res: Response) {
@@ -55,6 +56,21 @@ export const authController = {
         role,
       }
     });
+  },
 
+  async activation(req: Request, res: Response) {
+    const { password } = req.body;
+    const token = req?.headers.authorization?.split(" ")[1];
+    console.log(token);
+
+    if (!token) throw AppError("Token must be provide", 401);
+
+    await authService?.activation(password, token);
+
+    res.status(200).json({
+      success: true,
+      message: "Activation account succesfully",
+      data: [],
+    });
   }
 };

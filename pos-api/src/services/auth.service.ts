@@ -1,67 +1,96 @@
-import { User } from '../../generated/prisma/client';
-import { JWT_TOKEN_SECRET_KEY } from '../configs/main.config';
-import { prisma } from '../configs/prisma-client.config';
-import AppError from '../helpers/app-error.helper';
-import { hashing, hashMatch } from '../helpers/bcrypt.helper';
-import { jwtCreateToken } from '../helpers/jwt.helper';
-import transporter from '../helpers/nodemailer.helper';
+import path from "node:path";
+import { User } from "../../generated/prisma/client";
+import { JWT_TOKEN_SECRET_KEY } from "../configs/main.config";
+import { prisma } from "../configs/prisma-client.config";
+import AppError from "../helpers/app-error.helper";
+import { hashing, hashMatch } from "../helpers/bcrypt.helper";
+import { jwtCreateToken } from "../helpers/jwt.helper";
+import transporter from "../helpers/nodemailer.helper";
+import fs from "fs";
+import Handlebars from "handlebars";
+import { JWT_ACCOUNT_ACTIVATION_SECRET_KEY } from "../configs/main.config";
+import { hashPassword } from "../helpers/bcrypt";
+import jwt from "jsonwebtoken";
 
 export const authService = {
   async register({
     email,
     username,
-    role
-  }: Pick<User, 'email' | 'username' | 'role'>) {
+    role,
+  }: Pick<User, "email" | "username" | "role">) {
     const findUserByEmail = await prisma.user.findUnique({
       where: {
         email,
       },
     });
 
-    if (findUserByEmail) throw AppError('Email already registered', 400);
+    if (findUserByEmail) throw AppError("Email already registered", 400);
 
-    // const hashedPassword = await hashing(password);
-
-    await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
         username,
         email,
-        role
+        role,
       },
+    });
+
+    const activationToken = jwtCreateToken(
+      {
+        userId: createdUser?.id
+      },
+      JWT_ACCOUNT_ACTIVATION_SECRET_KEY!,
+      {
+        expiresIn: "1h"
+      }
+    );
+
+    const templateDir = path.resolve(__dirname, "./../templates");
+
+    const templatePath = path.join(templateDir, "account-activation.html");
+
+    const templateSource = fs.readFileSync(templatePath, "utf-8");
+
+    const compliedTemplate = Handlebars.compile(templateSource);
+
+    const html = compliedTemplate({
+      email: email,
+      activationAccountUrl: `http://localhost:3000/account-activation/${activationToken}`
     });
 
     await transporter.sendMail({
       to: email,
-      subject: "Account Active",
-      html: "<h1>Welcome</h1>"
+      subject: "Account Activation",
+      html: html,
     });
+
+
   },
 
-  async login({ email, password }: Pick<User, 'email' | 'password'>) {
+  async login({ email, password }: Pick<User, "email" | "password">) {
     const findUserByEmail = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (!findUserByEmail) throw AppError('User account not registered', 404);
+    if (!findUserByEmail) throw AppError("User account not registered", 404);
 
-    if (!findUserByEmail.isActive) throw AppError("User account innactive", 401);
+    if (!findUserByEmail.isActive) throw AppError("User account inactive", 401);
 
-    // const passwordMatched = await hashMatch(password, findUserByEmail?.password);
+    const passwordMatched = await hashMatch(password!, findUserByEmail.password!);
 
-    // if (!passwordMatched) throw AppError('User password is invalid', 400);
+    if (!passwordMatched) throw AppError("User password is invalid", 400);
 
     const token = jwtCreateToken(
       { userId: findUserByEmail?.id, role: findUserByEmail?.role },
       JWT_TOKEN_SECRET_KEY!,
       {
-        expiresIn: '1d'
-      }
+        expiresIn: "1d",
+      },
     );
 
     return {
       username: findUserByEmail?.username,
       role: findUserByEmail?.role,
-      token
+      token,
     };
   },
 
@@ -69,12 +98,32 @@ export const authService = {
     const findUserById = await prisma.user.findUnique({
       where: {
         id: userId,
-      }
+      },
     });
 
     return {
       username: findUserById?.username,
-      role: findUserById?.role
+      role: findUserById?.role,
     };
+  },
+
+  async activation(password: string, token: string) {
+    const payload = jwt.verify(token, JWT_ACCOUNT_ACTIVATION_SECRET_KEY!);
+
+    if (typeof payload === "string" || !("userId" in payload)) {
+      throw new Error("Invalid token payload");
+    }
+
+    const hashedpassword = await hashing(password);
+
+    await prisma.user.update({
+      data: {
+        password: hashedpassword,
+        isActive: true
+      },
+      where: {
+        id: payload.userId
+      }
+    });
   }
 };

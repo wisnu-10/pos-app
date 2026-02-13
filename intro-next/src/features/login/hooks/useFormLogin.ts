@@ -13,12 +13,19 @@ export function useFromLogin() {
             password: "",
         },
         onSubmit: async ({ email, password }) => {
-            const user = await loginApi({ email, password });
+            try {
+                const user = await loginApi({ email, password });
 
-            setAuth({ username: user?.username, role: user?.role });
+                setAuth({ username: user?.username, role: user?.role });
 
-            router.push("/dashboard");
+                router.push("/dashboard");
+            }
+            catch (error: any) {
+                alert(error?.data?.message);
+            }
         },
-    });
+
+    },
+    );
     return { formik };
 }
