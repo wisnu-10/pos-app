@@ -17,6 +17,7 @@ export const menuService = {
 
     const totalPages = Math.ceil(totalMenus / limit);
 
+
     return {
       menus,
       totalMenus,
@@ -48,7 +49,7 @@ export const menuService = {
       const fileToCreate = files?.map((file: Express.Multer.File) => {
         return { imageUrl: file?.filename, menuId: createdMenu?.id };
       });
-  
+
       await prisma?.menuImage?.createMany({
         data: fileToCreate
       }); */

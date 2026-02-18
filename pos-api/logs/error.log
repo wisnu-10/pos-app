@@ -15,3 +15,82 @@
     "content-length": "92"
   }
 }
+[2026-02-16 10:45:09] ERROR: POST /api/transaction - Something went wrong  {
+  "statusCode": 500,
+  "name": "Error",
+  "stack": "Error: Origin not allowed by CORS\n    at origin (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\src\\configs\\cors.config.ts:8:16)\n    at D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\cors\\lib\\index.js:219:13\n    at optionsCallback (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\cors\\lib\\index.js:199:9)\n    at corsMiddleware (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\cors\\lib\\index.js:204:7)\n    at Layer.handleRequest (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\lib\\layer.js:152:17)\n    at trimPrefix (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\index.js:342:13)\n    at D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\index.js:297:9\n    at processParams (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\index.js:291:5)\n    at router.handle (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\router\\index.js:186:3)",
+  "params": {},
+  "query": {},
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.51.1",
+    "accept": "*/*",
+    "postman-token": "c87efcc2-8959-4808-a05b-fffd1f281fbd",
+    "host": "localhost:8080",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "247"
+  }
+}
+[2026-02-16 10:46:05] ERROR: POST /api/transaction - Something went wrong  {
+  "statusCode": 500,
+  "name": "PrismaClientValidationError",
+  "stack": "PrismaClientValidationError: \nInvalid `tx.transaction.create()` invocation in\nD:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\src\\services\\transaction.service.ts:42:34\n\n  39 console.log(ammount);\n  40 console.log(transactionItem);\n  41 \n→ 42 await tx.transaction.create({\n       data: {\n         customerName: \"Josh\",\n         paymentMethod: \"CASH\",\n         ammount: 100000,\n         expiry: new Date(\"2026-02-16T03:47:05.394Z\"),\n         transactionItem: {\n           createMany: {\n             data: [\n               {\n                 name: \"Kopi Gula Aren\",\n                 price: 25000,\n                 quantity: \"1\",\n                 totalPerItem: 25000\n               },\n               {\n                 name: \"Kopi Gula Aren\",\n                 price: 25000,\n                 quantity: \"3\",\n                 totalPerItem: 75000\n               }\n             ]\n           }\n         }\n       }\n     })\n\nArgument `quantity`: Invalid value provided. Expected Int, provided String.\n    at throwValidationException (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\core\\errorRendering\\throwValidationException.ts:46:9)\n    at Vr.handleRequestError (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:202:7)\n    at Vr.handleAndLogRequestError (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:174:12)\n    at Vr.request (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:143:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async a (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\getPrismaClient.ts:805:24)",
+  "body": {
+    "customerName": "Josh",
+    "paymentMethod": "CASH",
+    "orderItems": [
+      {
+        "id": "0c99ffe8-ac9c-40c5-8442-440295a4365c",
+        "quantity": "1"
+      },
+      {
+        "id": "dc175d64-ecc1-4188-b635-17565438a2e8",
+        "quantity": "3"
+      }
+    ]
+  },
+  "params": {},
+  "query": {},
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.51.1",
+    "accept": "*/*",
+    "postman-token": "f0f83234-98c6-4edf-9109-2baa8ec03452",
+    "host": "localhost:8080",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "247"
+  }
+}
+[2026-02-16 10:47:31] ERROR: POST /api/transaction - Something went wrong  {
+  "statusCode": 500,
+  "name": "PrismaClientValidationError",
+  "stack": "PrismaClientValidationError: \nInvalid `tx.transaction.create()` invocation in\nD:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\src\\services\\transaction.service.ts:42:34\n\n  39 console.log(ammount);\n  40 console.log(transactionItem);\n  41 \n→ 42 await tx.transaction.create({\n       data: {\n         customerName: \"Josh\",\n         paymentMethod: \"CASH\",\n         ammount: 100000,\n         expiry: new Date(\"2026-02-16T03:48:31.199Z\"),\n         transactionItem: {\n           createMany: {\n             data: [\n               {\n                 name: \"Kopi Gula Aren\",\n                 price: 25000,\n                 quantity: \"1\",\n                 totalPerItem: 25000\n               },\n               {\n                 name: \"Kopi Gula Aren\",\n                 price: 25000,\n                 quantity: \"3\",\n                 totalPerItem: 75000\n               }\n             ]\n           }\n         }\n       }\n     })\n\nArgument `quantity`: Invalid value provided. Expected Int, provided String.\n    at throwValidationException (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\core\\errorRendering\\throwValidationException.ts:46:9)\n    at Vr.handleRequestError (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:202:7)\n    at Vr.handleAndLogRequestError (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:174:12)\n    at Vr.request (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\RequestHandler.ts:143:12)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async a (D:\\Purwadhika Materi\\Modul5\\day1\\pos-api\\node_modules\\@prisma\\client\\src\\runtime\\getPrismaClient.ts:805:24)",
+  "body": {
+    "customerName": "Josh",
+    "paymentMethod": "CASH",
+    "orderItems": [
+      {
+        "id": "0c99ffe8-ac9c-40c5-8442-440295a4365c",
+        "quantity": "1"
+      },
+      {
+        "id": "dc175d64-ecc1-4188-b635-17565438a2e8",
+        "quantity": "3"
+      }
+    ]
+  },
+  "params": {},
+  "query": {},
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.51.1",
+    "accept": "*/*",
+    "postman-token": "0cd0af86-6456-48c2-96a1-07412caf6b06",
+    "host": "localhost:8080",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "247"
+  }
+}
